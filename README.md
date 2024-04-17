@@ -5,4 +5,4 @@ Skript globes.py pomocí pro každou plošku dvanáctistěnu generuje její okra
 
 Před spuštěním je nutné mít nainstalované knihovny arcpy, numpy, pathlib a os. Také je nutné nastavit na řádku č. 7 workspace.
 
-Výsledky se ukládají do složky results jako shapefily pojmenované boundary/meridian/parallel_face{číslo plošky}. 
+Výsledky se ukládají do složky results jako shapefily pojmenované boundary/meridian/parallel_face{_číslo plošky_}. 
