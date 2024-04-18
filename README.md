@@ -24,4 +24,4 @@ Výsledky se ukládají do složky results jako shapefily pojmenované boundary/
 | 12	| 31.71745	| 288 |
 
 
-Náš výsledek připravený k tisku je uložen v této složce pod jménem _globe_faces.pdf_.
+Náš výsledek připravený k tisku je uložen v této složce pod jménem _globe_glom_littlepocketsize.pdf_.
