@@ -8,15 +8,13 @@ from pathlib import Path
 from map_projections import projs
 import math
 
-
+# create directories
 if not Path('results').exists():
     os.mkdir('results')
-
 if not Path('temp').exists():
     os.mkdir('temp')
 
-
-# Set workspace - SET YOUR OWN WORKSPACE
+# SET WORKSPACE
 arcpy.env.workspace = 'C:/Users/eliss/Documents/PGIS/MATKARTO'
 arcpy.env.overwriteOutput = 1
 
