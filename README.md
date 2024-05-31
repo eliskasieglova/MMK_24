@@ -4,7 +4,7 @@
 Před spuštěním je nutné mít nainstalované knihovny _arcpy_, _numpy_, _pathlib_ , _geopandas_ a _os_. Také je nutné nastavit na řádku č. 7 _workspace_.
 
 Pro generování glóbů využíváme dva scripty
-- _map\_projections.py_: zde jsou ve slovníku uložené textové parametry gnomonické projekce pro každou plošku,
+- _map\_projections.py_: zde jsou ve slovníku uložené textové parametry gnomonické projekce pro každou stěnu glóbu,
 - _globes.py_: hlavní script, který generuje .pdf soubor s 12 ploškami dvanáctistěnového glóbu
 
 Na začátku jsou 2 složky: _temp_ (zde jsou uložené dočasné soubory, složku je možné po proběhnutí skriptu smazat) a _results_ (zde jsou uložené výsledné shapefily, tuto složku nemazat).
