@@ -307,6 +307,9 @@ for i in range(12):
     # Create Map
     new_map = aprx.createMap(f"Face{i+1}")
 
+    # Add Basemap (choose any basemap from https://www.arcgis.com/home/group.html?id=702026e41f6641fb85da88efe79dc166&view=list#content)
+    new_map.addBasemap("Charted Territory Map")
+
     # set target spatial reference
     spatial_reference = projs[i]
 
@@ -405,5 +408,5 @@ for i in range(12):
 
 # Export the layout to a PDF
 print('exporting')
-layout.exportToPDF("globe_faces.pdf")
+layout.exportToPDF("globe_faces.pdf", resolution=600)
 
