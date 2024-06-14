@@ -8,14 +8,16 @@ from pathlib import Path
 from map_projections import projs
 import math
 
-# create directories
+
 if not Path('results').exists():
     os.mkdir('results')
+
 if not Path('temp').exists():
     os.mkdir('temp')
 
-# SET WORKSPACE
-arcpy.env.workspace = 'C:/Users/eliss/Documents/PGIS/MATKARTO'
+
+# Set workspace - SET YOUR OWN WORKSPACE
+arcpy.env.workspace = 'PATH TO YOUR WORKSPACE'
 arcpy.env.overwriteOutput = 1
 
 # Create Project - MAKE PROJECT IN ARCGIS PRO CALLED "project.aprx" AND SAVE IN CURRENT DIRECTORY
@@ -25,14 +27,18 @@ aprx = arcpy.mp.ArcGISProject("project.aprx")
 pw = 300
 ph = 430
 
+pw = 300
+ph = 430
+
 # Create Layout
 layout = aprx.createLayout(pw, ph, 'MILLIMETER')
 layout.name = "Layout"
 
-# Locations of faces on layout
-rotace = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-posuny_x = [50, 150, 250, 50, 150, 250, 50, 150, 250, 50, 150, 250]
-posuny_y = [350, 350, 350, 250, 250, 250, 150, 150, 150, 50, 50, 50]
+# antarctica, arctic, africa, australia, australia2, oceania, south america, africa, asia, japan, pacific, america
+# 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+rotace = [-180, -216, 144, -288, 0, -72, -144, -216, -144, -72, 0, 72]
+posuny_x = [271, 202, 242.8, 185, 190.1, 251, 283.65, 247.5, 116, 30.4, 108.65, 242.7]
+posuny_y = [370, 159, 283.8, 307.9, 370.2, 384.5, 331.3, 229.5, 277, 167, 51.5, 90.2]
 
 
 def mapframe_vertices(x_center, y_center, edge_length, theta_0):
@@ -307,7 +313,7 @@ for i in range(12):
     # Create Map
     new_map = aprx.createMap(f"Face{i+1}")
 
-    # Add Basemap (choose any basemap from https://www.arcgis.com/home/group.html?id=702026e41f6641fb85da88efe79dc166&view=list#content)
+    # Add basemap territory
     new_map.addBasemap("Charted Territory Map")
 
     # set target spatial reference
@@ -345,6 +351,9 @@ for i in range(12):
     # input parameters for counting vertices of map frame
     dx = posuny_x[i]  # x-coordinate of center point (set at the beginning of code)
     dy = posuny_y[i]  # y-coordinate of center point (set at the beginning of code)
+    rot = rotace[i]
+
+    # count vertices
     edge_length = 50  # edge length
     center = (dx, dy)
     theta_0 = math.pi/10  # rotation of map frames for northern hemisphere
@@ -376,6 +385,7 @@ for i in range(12):
     # Create the map frame
     map_frame = layout.createMapFrame(map_boundary, new_map)
     map_frame.map = new_map
+    map_frame.setAnchor = "CENTER_POINT"
 
     # Edit symbology
     layer1 = new_map.listLayers('meridians')[0]
@@ -402,11 +412,13 @@ for i in range(12):
     desc = arcpy.Describe(f'results/boundary_face{i+1}.shp')
     extent = desc.extent
     map_frame.camera.setExtent(extent)
+    map_frame.camera.heading = rot
+    map_frame.elementRotation = rot
 
 # Save the changes to the project
 #aprx.save()
 
 # Export the layout to a PDF
 print('exporting')
-layout.exportToPDF("globe_faces.pdf", resolution=600)
+layout.exportToPDF("globe_faces.pdf")
 
